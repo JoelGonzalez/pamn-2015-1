@@ -2,43 +2,55 @@
 *	Estructuras con memoria dinámica
 */
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+
+struct Alumno{
+	char nombre[30];
+	int edad;
+	float promedio;
+	struct Alumno *sig;
+};
 
 int main(){
 	
-	struct Alumno{
-		char nombre[30];
-		int edad;
-		float promedio;
-		struct Alumno *sig;
-	};
-
 	int i;
 
 	struct Alumno *fi;
-	struct Alumno *lista, *temp;
+	struct Alumno *lista, *auxiliar;
 
 	lista = (struct Alumno *)malloc(sizeof(struct Alumno));
 	lista->sig = NULL;
+
+	/*Pedir alumnos*/	
 	
-	for(i=0; i<4;i++){
+	for(i=0; i<4; i++){
+		
 		fi = (struct Alumno *)malloc(sizeof(struct Alumno));
 		fi->sig = NULL;
 		
-		printf("Teclea un nombre: ");
+		printf("\nNombre del alumno %d: ", i+1);
 		gets(fi->nombre);
-		fi->edad = 30;
-		fi->promedio = 6.0;
-
+		
+		printf("Edad: ", i+1);
+		scanf("%d", &fi->edad);
+		getchar();
+		
+		printf("Promedio: ");
+		scanf("%f", &fi->promedio);
+		getchar();
+		
 		fi->sig = lista->sig;
 		lista->sig = fi;
 	}
+	
+	/*Mostrar alumnos*/
 
-	temp = lista->sig;
-	while(temp != NULL){
-		printf("\n %s , %d , %f ", temp->nombre, temp->edad, temp->promedio);
-		temp = temp->sig;
+	auxiliar= lista->sig;
+
+	while(auxiliar != NULL){
+		
+		printf("\n %s , %d , %.1f ", auxiliar->nombre, auxiliar->edad, auxiliar->promedio);
+		auxiliar = auxiliar->sig;
 	}
 		
 
